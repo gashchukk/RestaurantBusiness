@@ -58,9 +58,9 @@ def test_menu_workflow(client: TestClient, restaurant_owner_token, db_session):
         f"{settings.API_V1_STR}/menus/current",
         headers=headers,
     )
-    
-    assert response.status_code == 200
     data = response.json()
+
+    assert response.status_code == 200
     assert len(data) >= 1
     assert any(m["id"] == menu_id for m in data)
     

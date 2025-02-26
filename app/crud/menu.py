@@ -15,12 +15,9 @@ class CRUDMenu(CRUDBase[Menu, MenuCreate, MenuUpdate]):
         return (
             db.query(Menu)
             .filter(Menu.restaurant_id == restaurant_id, Menu.day == day)
-            .first()
-        )
+            .first())
 
-    def get_by_day(
-        self, db: Session, *, day: date
-    ) -> List[Menu]:
+    def get_by_day(self, db: Session, *, day: date) -> List[Menu]:
         return db.query(Menu).filter(Menu.day == day).all()
     
     def get_current_day_menus(self, db: Session) -> List[Menu]:

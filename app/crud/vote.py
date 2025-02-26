@@ -7,29 +7,20 @@ from app.crud.base import CRUDBase
 from app.models.vote import Vote
 from app.models.menu import Menu
 from app.models.restaurant import Restaurant
-from app.schemas.vote import VoteCreate, VoteResult
+from app.schemas.vote import VoteCreate
 
 
 class CRUDVote(CRUDBase[Vote, VoteCreate, VoteCreate]):
-    def get_by_user_and_day(
-        self, db: Session, *, user_id: int, day: date
-    ) -> Optional[Vote]:
-        """
-        Get a user's vote for a specific day
-        """
+    def get_by_user_and_day(self, db: Session, *, user_id: int, day: date) -> Optional[Vote]:
+        """ Get a user's vote for a specific day """
         return (
             db.query(Vote)
             .join(Menu)
             .filter(Vote.user_id == user_id, Menu.day == day)
-            .first()
-        )
+            .first())
 
-    def create_user_vote(
-        self, db: Session, *, obj_in: VoteCreate, user_id: int
-    ) -> Vote:
-        """
-        Create a new vote for a user, replacing any existing vote for the day
-        """
+    def create_user_vote( self, db: Session, *, obj_in: VoteCreate, user_id: int) -> Vote:
+        """ Create a new vote for a user, replacing any existing vote for the day """
         # Get the menu to determine the day
         menu = db.query(Menu).filter(Menu.id == obj_in.menu_id).first()
         if not menu:
@@ -56,12 +47,8 @@ class CRUDVote(CRUDBase[Vote, VoteCreate, VoteCreate]):
         db.refresh(db_obj)
         return db_obj
 
-    def get_vote_results_for_day(
-        self, db: Session, *, day: date
-    ) -> List[Dict[str, Any]]:
-        """
-        Get voting results for a specific day, with counts by restaurant/menu
-        """
+    def get_vote_results_for_day(self, db: Session, *, day: date) -> List[Dict[str, Any]]:
+        """ Get voting results for a specific day, with counts by restaurant/menu """
         results = (
             db.query(
                 Menu, 

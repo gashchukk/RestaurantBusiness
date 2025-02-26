@@ -16,16 +16,13 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             email=obj_in.email,
             hashed_password=get_password_hash(obj_in.password),
             full_name=obj_in.full_name,
-            role=obj_in.role
-        )
+            role=obj_in.role)
         db.add(db_obj)
         db.commit()
         db.refresh(db_obj)
         return db_obj
 
-    def update(
-        self, db: Session, *, db_obj: User, obj_in: UserUpdate
-    ) -> User:
+    def update(self, db: Session, *, db_obj: User, obj_in: UserUpdate) -> User:
         if isinstance(obj_in, dict):
             update_data = obj_in
         else:
@@ -36,9 +33,7 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
             update_data["hashed_password"] = hashed_password
         return super().update(db, db_obj=db_obj, obj_in=update_data)
 
-    def authenticate(
-        self, db: Session, *, email: str, password: str
-    ) -> Optional[User]:
+    def authenticate(self, db: Session, *, email: str, password: str) -> Optional[User]:
         user = self.get_by_email(db, email=email)
         if not user:
             return None
@@ -49,7 +44,5 @@ class CRUDUser(CRUDBase[User, UserCreate, UserUpdate]):
 
 user_crud = CRUDUser(User)
 
-
-# Utility functions
 def get_user_by_id(db: Session, user_id: int) -> Optional[User]:
     return db.query(User).filter(User.id == user_id).first()

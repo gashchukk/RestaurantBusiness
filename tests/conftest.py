@@ -9,12 +9,7 @@ from app.api.deps import get_db
 from app.core.config import settings
 from app.models.user import User, UserRole
 from app.core.security import get_password_hash
-
-# Use PostgreSQL for testing
-SQLALCHEMY_TEST_DATABASE_URL = "postgresql://mac-bohdan:2027@localhost:5432/restaurant_db"
-
-engine = create_engine(SQLALCHEMY_TEST_DATABASE_URL)
-
+from app.db.session import engine
 TestSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 

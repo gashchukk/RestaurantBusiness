@@ -9,22 +9,18 @@ from app.api.deps import get_db
 from app.core.config import settings
 from app.core.security import create_access_token
 from app.crud.user import user_crud
-from app.schemas.user import Token, User
+from app.schemas.user import Token
 
 router = APIRouter()
 
 
 @router.post("/login", response_model=Token)
-def login_access_token(
-    db: Session = Depends(get_db),
-    form_data: OAuth2PasswordRequestForm = Depends()
-) -> Any:
-    """
-    OAuth2 compatible token login, get an access token for future requests
-    """
-    user = user_crud.authenticate(
-        db=db, email=form_data.username, password=form_data.password
-    )
+def login_access_token(db: Session = Depends(get_db),
+                        form_data: OAuth2PasswordRequestForm = Depends()) -> Any:
+    """ OAuth2 compatible token login, get an access token for future requests """
+    
+    user = user_crud.authenticate( db=db, email=form_data.username,
+                                   password=form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

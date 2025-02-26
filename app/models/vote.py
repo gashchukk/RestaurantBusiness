@@ -13,6 +13,5 @@ class Vote(Base):
     menu_id = Column(Integer, ForeignKey("menus.id"))
     created_at = Column(DateTime, server_default=func.now())
     
-    # Relationships
     user = relationship("User", back_populates="votes")
     menu = relationship("Menu", back_populates="votes")

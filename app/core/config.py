@@ -10,7 +10,6 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
     PROJECT_NAME: str = "Lunch Decision API"
     
-    # Database settings
     DATABASE_URL: PostgresDsn
 
     class Config:

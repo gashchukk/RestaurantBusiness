@@ -1,6 +1,6 @@
-from typing import Optional, List, Dict, Any
+from typing import Optional, List
 from datetime import date
-from pydantic import BaseModel, validator
+from pydantic import BaseModel
 
 
 class MenuItem(BaseModel):

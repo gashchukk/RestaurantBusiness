@@ -13,6 +13,5 @@ class Restaurant(Base):
     description = Column(String, nullable=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
     
-    # Relationships
     owner = relationship("User", back_populates="restaurants")
     menus = relationship("Menu", back_populates="restaurant")
