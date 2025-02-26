@@ -1,19 +1,12 @@
-import pytest
 from fastapi.testclient import TestClient
 from datetime import date
 
 from app.core.config import settings
-from app.models.restaurant import Restaurant
-from app.models.menu import Menu
 
 
-def test_voting_workflow(
-    client: TestClient, 
-    db_session, 
-    employee_token, 
-    restaurant_owner_token
-):
+def test_voting_workflow(client: TestClient, employee_token, restaurant_owner_token):
     """Test full voting workflow"""
+    
     owner_headers = {"Authorization": f"Bearer {restaurant_owner_token}"}
     employee_headers = {"Authorization": f"Bearer {employee_token}"}
     

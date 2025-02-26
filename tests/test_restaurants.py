@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 
 from app.core.config import settings
@@ -6,6 +5,7 @@ from app.core.config import settings
 
 def test_create_restaurant(client: TestClient, restaurant_owner_token):
     """Test create restaurant endpoint"""
+    
     headers = {"Authorization": f"Bearer {restaurant_owner_token}"}
     restaurant_data = {
         "name": "Test Restaurant",

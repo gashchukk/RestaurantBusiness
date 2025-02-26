@@ -1,6 +1,5 @@
-import pytest
 from fastapi.testclient import TestClient
-from datetime import date, timedelta
+from datetime import date
 
 from app.core.config import settings
 
